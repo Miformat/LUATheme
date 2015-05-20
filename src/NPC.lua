@@ -15,7 +15,8 @@ NPC_mt.life = -1
 NPC.img = {
 	Fork = "img/fork.gif",
 	Strawberry = "img/strawberry.gif",
-	Obstacle = "img/chocolate.gif"
+	Obstacle = "img/chocolate.gif",
+	cube = "img/cube.gif"
 }
 
 function NPC.new(id)
@@ -27,7 +28,9 @@ function NPC.new(id)
 	elseif id == 1 then
 		self = newFriendly(id);
 	elseif id == 2 then
-		self = newObstacle(id);
+		self = newObstacle(id,0);
+	elseif id == 3 then
+		self = newObstacle(id,1);
 	end
 
 	return self
@@ -53,9 +56,13 @@ function newFriendly(id)
 	return self
 end
 
-function newObstacle(id)
+function newObstacle(id,x)
 	local self = setmetatable({},{__index = friendly_mt})
-	self.img = love.graphics.newImage(NPC.img.Obstacle)
+	if x == 0 then
+		self.img = love.graphics.newImage(NPC.img.Obstacle)
+	else
+		self.img = love.graphics.newImage(NPC.img.cube)
+	end
 	self.width = 30
 	self.height = 30
 	self.id = id
